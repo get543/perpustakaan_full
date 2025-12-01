@@ -1,3 +1,4 @@
+<!-- //!DON'T USE THIS, USELESS CODE -->
 <?php
 
 $query = "harry potter";
