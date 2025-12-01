@@ -10,7 +10,7 @@ Struktur:
   - Penghitungan denda terlambat pengembalian
 
 # Struktur Folder
-
+```txt
 perpustakaan_full/
 ├── admin/  
 │   ├── dashboard.php
@@ -50,5 +50,6 @@ perpustakaan_full/
 ├─── database.sql
 ├─── index.php
 └─── README.md
+```
 
 SQL query ada di file database.sql.
