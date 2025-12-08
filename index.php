@@ -19,7 +19,7 @@ if ($role === 'Petugas') {
 }
 
 if ($role === 'Member') {
-    header('Location: member/catalog_api.php');
+    header('Location: member/catalog.php');
     exit;
 }
 

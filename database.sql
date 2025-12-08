@@ -52,7 +52,7 @@ INSERT INTO users (name, email, password, role) VALUES
 ('Petugas Perpus', 'petugas@perpus.test', SHA2('123456',256), 'Petugas'),
 ('Member Contoh', 'member@perpus.test', SHA2('123456',256), 'Member');
 
-
+-- kalo mau pake database biasa, tambahin bukunya kyk gini
 INSERT INTO books (title, author, category, year, stock, cover)
 VALUES
 ('Dune', 'Frank Herbert', 'Sci-Fi', 1965, 4, 'dune.jpg'),
@@ -70,6 +70,23 @@ CREATE TABLE IF NOT EXISTS api_bookings (
   booking_date DATE NOT NULL,
   expire_date DATE NOT NULL,
   status ENUM('active', 'expired', 'collected', 'cancelled') DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- bikin tabel untuk lihat pinjaman via API
+CREATE TABLE IF NOT EXISTS api_loans (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  book_id VARCHAR(50) NOT NULL, -- Changed from INT to VARCHAR for OpenLibrary IDs
+  book_title VARCHAR(255),
+  book_author VARCHAR(255),
+  book_cover VARCHAR(500),
+  loan_date DATE NOT NULL,
+  due_date DATE NOT NULL,
+  return_date DATE DEFAULT NULL,
+  status ENUM('borrowed', 'returned', 'overdue') DEFAULT 'borrowed',
+  fine INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );

@@ -82,7 +82,7 @@ include '../includes/navbar.php';
                   <a class="btn btn-sm btn-outline-success" href="?action=approve&id=<?= $b['id'] ?>">Approve</a>
                   <a class="btn btn-sm btn-outline-danger" href="?action=cancel&id=<?= $b['id'] ?>">Cancel</a>
                 <?php elseif ($b['status'] === 'approved'): ?>
-                  <a class="btn btn-sm btn-dark" href="?action=pickup&id=<?= $b['id'] ?>">Konfirmasi &amp; Pinjam</a>
+                  <a class="btn btn-sm btn-secondary" href="?action=pickup&id=<?= $b['id'] ?>">Konfirmasi &amp; Pinjam</a>
                 <?php endif; ?>
               </td>
             </tr>

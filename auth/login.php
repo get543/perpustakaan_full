@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php include '../includes/header.php'; ?>
-<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-gradient">
   <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
     <h4 class="mb-3 text-center">Login Perpustakaan</h4>
     <?php if ($error): ?>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label class="form-label">Password</label>
         <input type="password" name="password" class="form-control" required>
       </div>
-      <button class="btn btn-dark w-100 mt-2" type="submit">Masuk</button>
+      <button class="btn btn-outline-secondary w-100 mt-2" type="submit">Masuk</button>
     </form>
   </div>
 </div>

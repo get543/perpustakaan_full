@@ -17,7 +17,7 @@ include '../includes/navbar.php';
   <div class="col-md-4">
     <div class="card shadow-sm border-0">
       <?php if ($book['cover']): ?>
-        <img src="../assets/uploads/<?= esc($book['cover']) ?>" class="book-cover-large">
+        <img src="../assets/uploads/<?= esc($book['cover']) ?>" class="book-cover-large mx-auto d-block" alt="Book Cover">
       <?php endif; ?>
     </div>
   </div>
@@ -30,7 +30,7 @@ include '../includes/navbar.php';
     <p>Stok tersedia: <strong><?= esc($book['stock']) ?></strong></p>
 
     <?php if ($book['stock'] > 0): ?>
-      <a href="booking_create.php?book_id=<?= $book['id'] ?>" class="btn btn-dark">
+      <a href="booking_create.php?book_id=<?= $book['id'] ?>" class="btn btn-secondary">
         Booking Buku Ini
       </a>
       <p class="small text-muted mt-2">

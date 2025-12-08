@@ -1,8 +1,9 @@
 <?php
 $user = $_SESSION['user'] ?? null;
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg bg-gradient shadow-sm">
   <div class="container">
+    <img src="../favicon.ico" alt="Icon" style="height:24px; width:24px;" class="me-2">
     <a class="navbar-brand fw-bold" href="../index.php">Perpus Modern</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -30,9 +31,9 @@ $user = $_SESSION['user'] ?? null;
 
           <!-- MEMBER MENU -->
           <?php if ($user['role'] === 'Member'): ?>
-            <li class="nav-item"><a class="nav-link" href="../member/catalog_api.php">Katalog</a></li>
-            <li class="nav-item"><a class="nav-link" href="../member/my_bookings_api.php">Booking</a></li>
-            <li class="nav-item"><a class="nav-link" href="../member/my_loans_api.php">Peminjaman</a></li>
+            <li class="nav-item"><a class="nav-link" href="../member/catalog.php">Katalog</a></li>
+            <li class="nav-item"><a class="nav-link" href="../member/my_bookings.php">Booking</a></li>
+            <li class="nav-item"><a class="nav-link" href="../member/my_loans.php">Peminjaman</a></li>
           <?php endif; ?>
 
         <?php endif; ?>
@@ -40,6 +41,9 @@ $user = $_SESSION['user'] ?? null;
       </ul>
 
       <ul class="navbar-nav">
+        <button id="theme-toggle" class="btn btn-outline-secondary btn-sm me-3">
+          Toggle to Dark Mode
+        </button>
         <?php if ($user): ?>
           <li class="nav-item">
             <span class="navbar-text me-3">
@@ -47,11 +51,11 @@ $user = $_SESSION['user'] ?? null;
             </span>
           </li>
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm" href="../auth/logout.php">Logout</a>
+            <a class="btn btn-outline-secondary btn-sm" href="../auth/logout.php">Logout</a>
           </li>
         <?php else: ?>
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm" href="../auth/login.php">Login</a>
+            <a class="btn btn-outline-secondary btn-sm" href="../auth/login.php">Login</a>
           </li>
         <?php endif; ?>
       </ul>
@@ -60,4 +64,4 @@ $user = $_SESSION['user'] ?? null;
   </div>
 </nav>
 
-<div class="container py-4">  
+<div class="container py-4">
