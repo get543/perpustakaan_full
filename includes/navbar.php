@@ -3,7 +3,7 @@ $user = $_SESSION['user'] ?? null;
 ?>
 <nav class="navbar navbar-expand-lg bg-gradient shadow-sm">
   <div class="container">
-    <img src="../favicon.ico" alt="Icon" style="height:24px; width:24px;" class="me-2">
+    <a href="../index.php"><img src="../favicon.ico" alt="Icon" style="height:24px; width:24px;" class="me-2"></a>
     <a class="navbar-brand fw-bold" href="../index.php">Perpus Modern</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
