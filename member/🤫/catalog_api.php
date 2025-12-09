@@ -15,7 +15,49 @@ if ($keyword) {
 }
 
 $data = json_decode(file_get_contents($url . "&limit=12"), true);
-$stok = random_int(1, 100);
+// $stok = random_int(1, 100);
+
+// -------------------------------------------------------------------------
+// Load the stock file
+$stockFile = '/book_stock.json'; // adjust path
+if (!file_exists($stockFile)) {
+	file_put_contents($stockFile, "{}");
+}
+
+$stockData = json_decode(file_get_contents($stockFile), true);
+if (!is_array($stockData))
+	$stockData = [];
+
+// Get unique ID for each book
+function getBookId($book) {
+	// Use OLID or work key as unique ID
+	return $book['key'] ?? null;
+}
+
+// Generate or retrieve stock
+function getBookStock($book, &$stockData, $stockFile) {
+	$id = getBookId($book);
+	if (!$id)
+		return 0;
+
+	// If stock already exists, return it
+	if (isset($stockData[$id])) {
+		return $stockData[$id];
+	}
+
+	// Otherwise create new stock 0–100
+	$newStock = random_int(0, 100);
+
+	// Save it
+	$stockData[$id] = $newStock;
+	file_put_contents($stockFile, json_encode($stockData, JSON_PRETTY_PRINT));
+
+	return $newStock;
+}
+// -------------------------------------------------------------------------
+
+
+
 
 include '../includes/header.php';
 include '../includes/navbar.php';
@@ -39,9 +81,9 @@ include '../includes/navbar.php';
 
 					<!-- cover book checking -->
 					<?php if (isset($book["cover_i"]) && $book["cover_i"]): ?>
-						<img src="https://covers.openlibrary.org/b/id/<?= $book["cover_i"] ?>-M.jpg" class="book-cover">
+						<img src="https://covers.openlibrary.org/b/id/<?= esc($book["cover_i"]) ?>-M.jpg" class="book-cover">
 					<?php else: ?>
-						<img src="no_cover.png" class="book-cover">
+						<img src="../assets/uploads/no_cover.png" class="book-cover">
 					<?php endif; ?>
 
 					<div class="card-body d-flex flex-column">
@@ -49,7 +91,11 @@ include '../includes/navbar.php';
 						<p class="text-muted small mb-1">
 							<?= isset($book['author_name']) ? esc(implode(', ', $book['author_name'])) : "Unknown Author" ?>
 						</p>
-						<p class="small mb-2">Tahun: <?= $book['first_publish_year'] ?? "N/A" ?></p>
+						<p class="small mb-2">Tahun: <?= esc($book['first_publish_year'] ?? "N/A") ?></p>
+
+						<!-- stocks -->
+						<p class="small mb-2">Stok: <?= getBookStock($book, $stockData, $stockFile) ?></p>
+
 						<!-- Add this link -->
 						<?php if (isset($book['key'])): ?>
 							<a href="book_detail_api.php?id=<?= urlencode(str_replace('/works/', '', $book['key'])) ?>"

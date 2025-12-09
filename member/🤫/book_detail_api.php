@@ -22,6 +22,47 @@ if ($bookData === false) {
 
 $book = json_decode($bookData, true);
 
+// -------------------------------------------------------------------------
+// Load the stock file
+$stockFile = '/book_stock.json'; // adjust path
+if (!file_exists($stockFile)) {
+	file_put_contents($stockFile, "{}");
+}
+
+$stockData = json_decode(file_get_contents($stockFile), true);
+if (!is_array($stockData))
+	$stockData = [];
+
+// Get unique ID for each book
+function getBookId($book) {
+	// Use OLID or work key as unique ID
+	return $book['key'] ?? null;
+}
+
+// Generate or retrieve stock
+function getBookStock($book, &$stockData, $stockFile) {
+	$id = getBookId($book);
+	if (!$id)
+		return 0;
+
+	// If stock already exists, return it
+	if (isset($stockData[$id])) {
+		return $stockData[$id];
+	}
+
+	// Otherwise create new stock 0–100
+	$newStock = random_int(0, 100);
+
+	// Save it
+	$stockData[$id] = $newStock;
+	file_put_contents($stockFile, json_encode($stockData, JSON_PRETTY_PRINT));
+
+	return $newStock;
+}
+// -------------------------------------------------------------------------
+
+
+
 // Get additional info (editions for ISBN, publisher, etc.)
 $editionsUrl = "https://openlibrary.org/works/" . urlencode($id) . "/editions.json";
 $editionsData = @file_get_contents($editionsUrl);
@@ -52,9 +93,9 @@ include '../includes/navbar.php';
   <div class="col-md-4">
     <div class="card shadow-sm border-0">
       <?php if ($coverId): ?>
-        <img src="https://covers.openlibrary.org/b/id/<?= $coverId ?>-L.jpg" class="book-cover-large" alt="Book Cover">
+        <img src="https://covers.openlibrary.org/b/id/<?= $coverId ?>-L.jpg" class="book-cover-large mx-auto d-block" alt="Book Cover">
       <?php else: ?>
-        <img src="../assets/uploads/no_cover.png" class="book-cover-large" alt="No Cover">
+        <img src="../assets/uploads/no_cover.png" class="book-cover-large mx-auto d-block" alt="No Cover">
       <?php endif; ?>
     </div>
   </div>
@@ -113,9 +154,9 @@ include '../includes/navbar.php';
       </div>
     <?php endif; ?>
 
-    <p>Stok tersedia: <strong><?= $randomStock ?></strong></p>
+    <p>Stok tersedia: <strong><?= getBookStock($book, $stockData, $stockFile) ?></strong></p>
 
-    <?php if ($randomStock > 0): ?>
+    <?php if (getBookStock($book, $stockData, $stockFile) > 0): ?>
       <a href="booking_create_api.php?book_id=<?= urlencode($id) ?>&title=<?= urlencode($book['title'] ?? 'Unknown') ?>"
         class="btn btn-dark">
         Booking Buku Ini
