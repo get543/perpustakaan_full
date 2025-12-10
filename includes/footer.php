@@ -1,6 +1,6 @@
 </div> <!-- /container -->
 
-<footer class="bg-gradient text-center py-3 mt-5">
+<footer class="bg-gradient text-center py-3 mt-auto">
   <small>&copy; <?= date('Y') ?> Sistem Perpustakaan Modern</small>
 </footer>
 

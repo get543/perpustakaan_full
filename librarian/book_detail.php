@@ -148,11 +148,11 @@ include '../includes/navbar.php';
     <?php endif; ?>
 
     <a href="books.php?title=<?= urlencode($book['title'] ?? 'Unknown Title') ?>&author=<?= urlencode(implode(', ', $authorNames) ?: 'Unknown Author') ?>&year=<?= urlencode($firstPublishYear) ?>&cover=<?= urlencode($coverId ? "https://covers.openlibrary.org/b/id/$coverId-L.jpg" : "../assets/uploads/no_cover.png") ?>"
-      class="btn btn-dark">
+      class="btn btn-secondary">
       Add to Library
     </a>
 
-    <a href="books.php" class="btn btn-outline-secondary mt-2">
+    <a href="books.php" class="btn btn-outline-secondary">
       Kembali
     </a>
   </div>

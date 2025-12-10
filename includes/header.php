@@ -16,4 +16,4 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
